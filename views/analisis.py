@@ -22,11 +22,13 @@ class DataAnalysis:
 
     def calcular_dispersion(self):
         numeric_data = self.data.select_dtypes(include=[np.number])
-        dispersion = {
-            'desviación estándar': numeric_data["Salary"].std(),
-            'varianza': numeric_data["Salary"].var(),
-            'rango': numeric_data["Salary"].max() - numeric_data["Salary"].min()
-        }
+        dispersion = {}
+        for columna in numeric_data.columns:
+            dispersion[columna] = {
+                'desviación estándar': numeric_data[columna].std(),
+                'varianza': numeric_data[columna].var(),
+                'rango': numeric_data[columna].max() - numeric_data[columna].min()
+            }
         return dispersion
 
     def crear_histogramas(self, columnas):
