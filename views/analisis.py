@@ -11,11 +11,13 @@ class DataAnalysis:
 
     def calcular_tendencia_central(self):
         numeric_data = self.data.select_dtypes(include=[np.number])
-        medidas = {
-            'media': numeric_data.mean(),
-            'mediana': numeric_data.median(),
-            'moda': numeric_data.mode().iloc[0]
-        }
+        medidas = {}
+        for columna in numeric_data.columns:
+            medidas[columna] = {
+                'media': numeric_data[columna].mean(),
+                'mediana': numeric_data[columna].median(),
+                'moda': numeric_data[columna].mode().iloc[0] if not numeric_data[columna].mode().empty else None
+            }
         return medidas
 
     def calcular_dispersion(self):
